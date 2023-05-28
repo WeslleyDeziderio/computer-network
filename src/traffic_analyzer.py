@@ -3,12 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 df = pd.read_csv('../assets/cbolao.csv')
-print(df.head())
+# print(df.head())
 
 df_min_time = df[df['Time'] <= 240]
-print(df_min_time.head())
+# print(df_min_time.head())
 
-print(df_min_time['Protocol'].value_counts())
+# print(df_min_time['Protocol'].value_counts())
 
 client_length_pkgs = list(df_min_time[df_min_time['Source'] == '192.168.10.14']['Length'])
 client_time_pkgs = list(df_min_time[df_min_time['Source'] == '192.168.10.14']['Time'])
@@ -18,16 +18,16 @@ server_to_client_time_pkgs = list(df_min_time[df_min_time['Destination'] == '192
 
 print("Unidade de packets do cliente:", len(client_length_pkgs))
 
-plt.scatter(client_time_pkgs, client_length_pkgs)
-plt.xlabel('Time')
-plt.ylabel('Packet Length')
-plt.title('Client Packets: Length vs. Time')
-plt.show()
+fig_1, ax_1 = plt.subplots()
 
-plt.scatter(server_to_client_time_pkgs, server_to_client_length_pkgs)
-plt.xlabel('Time')
-plt.ylabel('Packet Length')
-plt.title('Server to Client Packets: Length vs. Time')
+ax_1.set(ylabel = 'Packet Length', xlabel = 'Time')
+ax_1.set_title('Client Packets: Length vs. Time')
+ax_1.plot(client_time_pkgs, client_length_pkgs)
+
+fig_2, ax_2 = plt.subplots()
+ax_2.set(ylabel = 'Packet Lenght', xlabel = 'Time')
+ax_2.set_title('Server to Client Packets: Length vs. Time')
+ax_2.plot(server_to_client_time_pkgs, server_to_client_length_pkgs)
 plt.show()
 
 def linear_space_transformer(space_x, space_y, slide_win):
@@ -58,7 +58,7 @@ def linear_space_transformer(space_x, space_y, slide_win):
 
 x_inicial, y_inicial = linear_space_transformer(client_time_pkgs, client_length_pkgs, 1)
 
-plt.plot(x_inicial, y_inicial, color='b', label='upload')
+# plt.plot(x_inicial, y_inicial, color='b', label='upload')
 
 x_final, y_final = linear_space_transformer(server_to_client_time_pkgs, server_to_client_length_pkgs, 1)
 
@@ -67,7 +67,7 @@ plt.legend(loc="upper left")
 plt.xlabel("seconds") 
 plt.ylabel("bytes") 
 plt.title('Output in time', fontdict={'fontsize': 14}) 
-plt.show() 
+# plt.show() 
 
 def ecdf(data):
    
@@ -89,6 +89,6 @@ plt.title("Packages sizes distribution",  fontdict={'fontsize': 14})
 plt.xlabel("bytes")
 plt.ylabel("ECDF")
 plt.legend(loc="lower right")
-plt.show()
+# plt.show()
 
 df_min_time[df_min_time['Protocol'] == 'UDP'].plot(kind='scatter', x='Time', y='Length', title='UDP over time')
