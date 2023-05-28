@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('../assets/cbolao.csv')
+df = pd.read_csv('../assets/primal.csv')
 # print(df.head())
 
 df_min_time = df[df['Time'] <= 240]
@@ -60,7 +60,7 @@ x_inicial, y_inicial = linear_space_transformer(client_time_pkgs, client_length_
 x_final, y_final = linear_space_transformer(server_to_client_time_pkgs, server_to_client_length_pkgs, 1)
 
 fig3, ax3 = plt.subplots()
-ax3.plot(x_final, y_final, color = 'b', label = 'upload')
+ax3.plot(x_inicial, y_inicial, color = 'b', label = 'upload')
 ax3.plot(x_final, y_final, '-.', color = "orange", label="download")
 ax3.set(xlabel = 'seconds', ylabel = 'bytes')
 ax3.set_title('Output in time', fontdict={'fontsize': 14})
