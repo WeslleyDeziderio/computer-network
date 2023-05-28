@@ -28,7 +28,6 @@ fig_2, ax_2 = plt.subplots()
 ax_2.set(ylabel = 'Packet Lenght', xlabel = 'Time')
 ax_2.set_title('Server to Client Packets: Length vs. Time')
 ax_2.plot(server_to_client_time_pkgs, server_to_client_length_pkgs)
-plt.show()
 
 def linear_space_transformer(space_x, space_y, slide_win):
   acc_time = 0
@@ -58,16 +57,15 @@ def linear_space_transformer(space_x, space_y, slide_win):
 
 x_inicial, y_inicial = linear_space_transformer(client_time_pkgs, client_length_pkgs, 1)
 
-# plt.plot(x_inicial, y_inicial, color='b', label='upload')
-
 x_final, y_final = linear_space_transformer(server_to_client_time_pkgs, server_to_client_length_pkgs, 1)
 
-plt.plot(x_final, y_final, '-.', color = "orange", label="download")
-plt.legend(loc="upper left")
-plt.xlabel("seconds") 
-plt.ylabel("bytes") 
-plt.title('Output in time', fontdict={'fontsize': 14}) 
-# plt.show() 
+fig3, ax3 = plt.subplots()
+ax3.plot(x_final, y_final, color = 'b', label = 'upload')
+ax3.plot(x_final, y_final, '-.', color = "orange", label="download")
+ax3.set(xlabel = 'seconds', ylabel = 'bytes')
+ax3.set_title('Output in time', fontdict={'fontsize': 14})
+ax3.legend(loc="upper left")
+
 
 def ecdf(data):
    
@@ -83,12 +81,21 @@ def ecdf(data):
 x_download, y_download = ecdf(df_min_time[df_min_time['Destination'] == '192.168.10.14']['Length'])
 x_upload, y_upload = ecdf(df_min_time[df_min_time['Source'] == '192.168.10.14']['Length'])
 
-plt.plot(x_download, y_download, linestyle="none", marker=".", color = "orange", label="download")
-plt.plot(x_upload, y_upload, linestyle="none", marker=".", color = "blue", label="upload")
-plt.title("Packages sizes distribution",  fontdict={'fontsize': 14})
-plt.xlabel("bytes")
-plt.ylabel("ECDF")
-plt.legend(loc="lower right")
-# plt.show()
+fig4, ax4 = plt.subplots()
+# fig5, ax5 = plt.subplots()
+
+ax4.plot(x_download, y_download, color = "orange", label="download")
+ax4.plot(x_upload, y_upload, color = "blue", label="upload")
+
+ax4.set_title("Packages sizes distribution",  fontdict={'fontsize': 14})
+# ax5.set_title("Packages sizes distribution",  fontdict={'fontsize': 14})
+
+ax4.set(xlabel = "bytes", ylabel = "ECDF")
+# ax5.set(xlabel = "bytes", ylabel = "ECDF")
+
+ax4.legend(loc="lower right")
+# ax5.legend(loc="lower right")
+
+plt.show()
 
 df_min_time[df_min_time['Protocol'] == 'UDP'].plot(kind='scatter', x='Time', y='Length', title='UDP over time')
