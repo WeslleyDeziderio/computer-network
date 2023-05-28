@@ -106,3 +106,24 @@ plt.ylabel('Count')
 plt.title('Protocols')
 plt.xticks(rotation='vertical')
 plt.show()
+
+udp_lenght_df = list(df_min_time[df_min_time['Protocol'] == 'UDP']['Length'])
+udp_time_df = list(df_min_time[df_min_time['Protocol'] == 'UDP']['Time'])
+
+fig_6, ax_6 = plt.subplots()
+
+ax_6.set(ylabel = 'lenght(Bytes)', xlabel = 'Time')
+ax_6.set_ylim(0, 700)
+ax_6.set_title('UDP caracterization: Length vs. Time')
+ax_6.plot(udp_time_df, udp_lenght_df)
+
+tcp_lenght_df = list(df_min_time[df_min_time['Protocol'] == 'TCP']['Length'])
+tcp_time_df = list(df_min_time[df_min_time['Protocol'] == 'TCP']['Time'])
+
+fig_7, ax_7 = plt.subplots()
+
+ax_7.set(ylabel = 'lenght(Bytes)', xlabel = 'Time')
+ax_7.set_ylim(0, 700)
+ax_7.set_title('TCP caracterization: Length vs. Time')
+ax_7.plot(tcp_time_df, tcp_lenght_df)
+plt.show()
