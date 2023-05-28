@@ -56,7 +56,6 @@ def linear_space_transformer(space_x, space_y, slide_win):
   return new_linear_time_space, new_linear_length_space
 
 x_inicial, y_inicial = linear_space_transformer(client_time_pkgs, client_length_pkgs, 1)
-
 x_final, y_final = linear_space_transformer(server_to_client_time_pkgs, server_to_client_length_pkgs, 1)
 
 fig3, ax3 = plt.subplots()
@@ -98,4 +97,12 @@ ax4.legend(loc="lower right")
 
 plt.show()
 
-df_min_time[df_min_time['Protocol'] == 'UDP'].plot(kind='scatter', x='Time', y='Length', title='UDP over time')
+protocols_of_interest = ['UDP', 'TCP', 'ARP', 'DNS', 'DHCP', 'HTTP', 'MDNS', 'RTCP', 'TLSv1.2', 'TLSv1.3']
+filtered_df = df_min_time[df_min_time['Protocol'].isin(protocols_of_interest)]
+
+plt.hist(filtered_df['Protocol'], bins=len(protocols_of_interest), edgecolor='black')
+plt.xlabel('Protocol')
+plt.ylabel('Count') 
+plt.title('Protocols')
+plt.xticks(rotation='vertical')
+plt.show()
