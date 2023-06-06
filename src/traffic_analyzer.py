@@ -17,6 +17,8 @@ server_to_client_length_pkgs = list(df_min_time[df_min_time['Destination'] == '1
 server_to_client_time_pkgs = list(df_min_time[df_min_time['Destination'] == '192.168.10.14']['Time'])
 
 print("Unidade de packets do cliente:", len(client_length_pkgs))
+print("Unidade de packets do servidor:", len(server_to_client_time_pkgs))
+print("Unidade de packets cliente/servidor", len(client_length_pkgs) + len(server_to_client_time_pkgs))
 
 fig_1, ax_1 = plt.subplots()
 
